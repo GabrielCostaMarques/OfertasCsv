@@ -7,36 +7,36 @@ namespace OfertasCsv.Reader
 {
     public class Content
     {
-        public IEnumerable<ProductOffer> ReaderContent(CsvConfiguration config, SftpFileStream fileStream)
+        public IEnumerable<T> ReaderContent<T>(CsvConfiguration config, SftpFileStream fileStream)
         {
             var reader = new StreamReader(fileStream);
             var csv = new CsvReader(reader, config);
 
-            var list = csv.GetRecords<ProductOffer>();
+            var list = csv.GetRecords<T>();
 
             return list;
         }
 
-            //just do test
-        public IEnumerable<ProductOffer> FakerReaderContent(CsvConfiguration config, SftpFileStream fileStream)
-        {
-            var reader = new StreamReader(fileStream);
-            var csv = new CsvReader(reader, config);
+        //just do test
+        //public IEnumerable<T> FakerReaderContent<T>(CsvConfiguration config, SftpFileStream fileStream)
+        //{
+        //    var reader = new StreamReader(fileStream);
+        //    var csv = new CsvReader(reader, config);
 
-            var result = new List<ProductOffer>();
+        //    var result = new List<T>();
 
-            while (csv.Read())
-            {
-                var productOffer =csv.GetRecord<ProductOffer>(); 
-                if (productOffer.Currency=="BRL")
-                {
-                    result.Add(productOffer);
-                }
+        //    while (csv.Read())
+        //    {
+        //        var productOffer =csv.GetRecord<T>(); 
+        //        if (productOffer.Currency=="BRL")
+        //        {
+        //            result.Add();
+        //        }
 
-                if (result.Count >= 50) break;
-            }
+        //        if (result.Count >= 50) break;
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
     }
 }

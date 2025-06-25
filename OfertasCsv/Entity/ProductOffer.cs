@@ -73,7 +73,9 @@ namespace OfertasCsv.Entity
                 " - " +
                 Destination +
                 " - " +
-                CruiseFare
+                CruiseFare+
+                " - " +
+                CategoryName
                 
                 ;
         }
