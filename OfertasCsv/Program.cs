@@ -1,8 +1,4 @@
-﻿using CsvHelper.Configuration;
-using OfertasCsv.Entity;
-using OfertasCsv.Reader;
-using OfertasCsv.Writer;
-using System.Globalization;
+﻿using OfertasCsv.Writer;
 
 namespace OfertasCsv
 {
@@ -11,21 +7,27 @@ namespace OfertasCsv
         public static void Main(string[] args)
         {
             var config = new ConfigurationCsv().ConfigCsv();
-
-            var connection = new ConnectionSFTP().Connection();
-            var fileProduct = connection.OpenRead("./az-pricing-v3.csv");
-            var fileItinenary = connection.OpenRead("./az-itinerary.csv");
-
-            var itinenaries = new Content().ReaderContent<ItinenaryOffer>(config, fileItinenary);
-            var products = new Content().ReaderContent<ProductOffer>(config, fileProduct);
+            var cruises = Match.MatchWriter(config).ToList();
 
             FilterOffers filter = new();
-            var result = filter.FilterCategory(products, "INTER", c =>c.CategoryName);
 
+            var filteredByCurrency = filter.FilterGeneral(cruises, "BRL", c => c.Currency);
 
-            foreach (var item in result.Take(100))
+            Console.WriteLine($"\nFiltrados por categoria 'INTERIOR': {filteredByCurrency.Count()} cruzeiros");
+
+            foreach (var cruise in filteredByCurrency.Take(100))
             {
-                Console.WriteLine(item);
+                Console.WriteLine($"Cruzeiro: {cruise.ProductId} - {cruise.ProductName} ({cruise.ShipName})");
+                Console.WriteLine($"Data: {cruise.DebarkDate:dd/MM/yyyy} até {cruise.EmbarkDate:dd/MM/yyyy}");
+                Console.WriteLine($"Moeda: {cruise.Currency}");
+                Console.WriteLine("Itinerário:");
+
+                foreach (var item in cruise.Itinenary)
+                {
+                    Console.WriteLine($" Dia {item.DayOfCruise}: {item.PortName} ({item.PortCode})");
+                }
+
+                Console.WriteLine(new string('-', 50));
             }
 
         }

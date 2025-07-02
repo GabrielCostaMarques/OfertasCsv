@@ -64,6 +64,8 @@ namespace OfertasCsv.Entity
         [Name("PORT_FEES")]
         public double PortFees { get; set; }
 
+        public List<ItinenaryOffer> Itinenary { get; set; }
+
 
         public override string ToString()
         {
