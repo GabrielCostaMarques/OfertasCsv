@@ -1,28 +1,40 @@
-﻿namespace OfertasCsv.Writer
+﻿using OfertasCsv.Entity;
+
+namespace OfertasCsv.Writer
 {
-    public class FilterOffers : IFilter
+    public static class FilterOffers
     {
-        public IEnumerable<T> FilterGeneral<T>(IEnumerable<T> list, string obj, Func<T, string> selector)
+        public static List<T> FilterGeneral<T>(this List<T> list, string obj, Func<T, string> selector)
         {
             try
             {
                 if (!list.Any(item => selector(item).ToUpper() == obj))
                 {
                     Console.WriteLine("Not Found " + obj);
-                    return Enumerable.Empty<T>();
+                    return new List<T>();
                 }
 
-                var filteredCategory = list.Where(l => selector(l).ToUpper() == obj);
+                var filteredCategory = list.Where(l => selector(l).ToUpper() == obj).ToList();
 
                 return filteredCategory;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return Enumerable.Empty<T>();
+                return new List<T>();
             }
-
         }
+
+        public static List<T> TakeCheaperById<T>(this List<T> list) where T :ProductOffer
+        {
+            var cheaplist = list
+            .GroupBy(p=>p.ProductId)
+            .Select(p=>p.OrderBy(x=>x.CruiseFare).First())
+            .ToList();
+
+            return cheaplist;
+        }
+
     }
 
 }
