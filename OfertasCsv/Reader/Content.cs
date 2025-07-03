@@ -5,7 +5,7 @@ namespace OfertasCsv.Reader
 {
     public class Content
     {
-        public IEnumerable<T> ReaderContent<T>(CsvConfiguration config, Stream fileStream)
+        public List<T> ReaderContent<T>(CsvConfiguration config, Stream fileStream)
         {
             using var reader = new StreamReader(fileStream);
             var csv = new CsvReader(reader, config);

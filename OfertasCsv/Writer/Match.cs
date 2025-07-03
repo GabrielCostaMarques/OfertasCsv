@@ -11,14 +11,14 @@ namespace OfertasCsv.Writer
             using (var connection = new ConnectionSFTP().Connection())
             {
                 using Stream fileProduct = connection.OpenRead("./az-pricing-v3.csv");
-                using Stream fileItinenary = connection.OpenRead("./az-itinerary.csv");
+                using Stream fileItinerary = connection.OpenRead("./az-itinerary.csv");
 
                 var products = new Content().ReaderContent<ProductOffer>(config, fileProduct).ToList();
-                var itinenaries = new Content().ReaderContent<ItinenaryOffer>(config, fileItinenary).ToList();
+                var itinenaries = new Content().ReaderContent<ItinenaryOffer>(config, fileItinerary).ToList();
 
                 Parallel.ForEach(products, item =>
                 {
-                    item.Itinenary = itinenaries
+                    item.Itinerary = itinenaries
                         .Where(i => i.SailCode == item.ProductId)
                         .OrderBy(i => i.BerthDate)
                         .ToList();
