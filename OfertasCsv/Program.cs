@@ -16,15 +16,24 @@ namespace OfertasCsv
 
             cruises.GetForJson();
 
-            var mediaId = await Send.FindMediaIdAsync("ofertas.json");
+            var caminhoArquivo = @"C:\Users\gmarques\Downloads\ofertas.json";
+            var mediaId = await Send.FindMediaIdAsync("ofertasAzamara");
+
             if (mediaId.HasValue)
             {
-                await Send.EnviarJsonParaWordPressAsync(mediaId.Value);
+                var deletado = await Send.ExcluirMediaAsync(mediaId.Value);
+                if (!deletado)
+                {
+                    Console.WriteLine("Erro ao excluir. Abortando envio.");
+                    return;
+                }
             }
             else
             {
-                Console.WriteLine("Arquivo não encontrado no WordPress.");
+                Console.WriteLine("Arquivo anterior não encontrado, prosseguindo com novo envio.");
             }
+
+            await Send.EnviarJsonParaWordPressAsync(caminhoArquivo);
         }
 
 
