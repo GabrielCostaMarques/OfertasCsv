@@ -19,13 +19,22 @@ namespace OfertasCsv.Writer
 
                 Parallel.ForEach(products, item =>
                 {
-                    item.Itinerary = itinenaries
+                    var itineraryList = itinenaries
                         .Where(i => i.SailCode == item.ProductId)
                         .OrderBy(i => i.BerthDate)
                         .ToList();
+
+                    item.Itinerary = itineraryList;
+
+                    // Gera a string com os nomes dos portos separados por vírgula
+                    item.ItineraryPortNames = string.Join(" - ",
+                        itineraryList
+                        .Where(i => i.PortName != "AT SEA")
+                        .Select(i => i.PortName));
                 });
 
-                return products.ToList();
+
+                return products;
             }
 
         }

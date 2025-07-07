@@ -8,7 +8,7 @@ namespace OfertasCsv.Writer
         {
             try
             {
-                if (!list.Any(item => selector(item).ToUpper() == obj))
+                if (!list.Exists(item => selector(item).ToUpper() == obj))
                 {
                     Console.WriteLine("Not Found " + obj);
                     return new List<T>();

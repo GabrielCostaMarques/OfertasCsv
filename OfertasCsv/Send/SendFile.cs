@@ -7,9 +7,9 @@ namespace OfertasCsv.Send
 {
     public class SendFile : ISendFile
     {
-        private static readonly string user = "";
-        private static readonly string appPassword = "";
-        private static readonly string baseUrl = "";
+        private static readonly string user = "Gabriel Marques";
+        private static readonly string appPassword = "p2DhLNweu5Ct4m1GlTRiAAX6";
+        private static readonly string baseUrl = "https://manualdoagente.com.br/wp-json/wp/v2";
 
         private HttpClient CreateHttpClient()
         {
@@ -41,7 +41,7 @@ namespace OfertasCsv.Send
         public async Task<bool> DeleteMediaAsync(int mediaId)
         {
             using var client = CreateHttpClient();
-            var url = $"{baseUrl}/media/{mediaId}";
+            var url = $"{baseUrl}/media/{mediaId}?force=true";
 
             var response = await client.DeleteAsync(url);
             if (response.IsSuccessStatusCode)

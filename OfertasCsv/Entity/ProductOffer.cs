@@ -4,6 +4,10 @@ namespace OfertasCsv.Entity
 {
     public class ProductOffer
     {
+        public ProductOffer()
+        {
+        }
+
         [Name("DESTINATION")]
         public string Destination { get; set; }
 
@@ -64,6 +68,8 @@ namespace OfertasCsv.Entity
         [Name("PORT_FEES")]
         public double PortFees { get; set; }
 
+        [Ignore] 
+        public string ItineraryPortNames { get; set; }
         public List<ItineraryOffer> Itinerary { get; set; }
     }
 

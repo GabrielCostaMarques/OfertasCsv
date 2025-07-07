@@ -52,16 +52,6 @@ namespace OfertasCsv.Entity
         [Name("OVERNIGHT_FLAG")]
         public char OverNightFlag { get; set; }
 
-
-
-
-        public override string ToString()
-        {
-            return ShipCode +
-                " - " +
-                SailCode +
-                " - " +
-                PortName;
-        }
+       
     }
 }
