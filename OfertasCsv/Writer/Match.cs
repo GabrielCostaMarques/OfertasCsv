@@ -9,37 +9,22 @@ namespace OfertasCsv.Writer
     {
         public static List<ProductOffer> MatchWriter(CsvConfiguration config)
         {
-            using (var connection = new ConnectionSFTP().Connection())
-            {
-                using Stream fileProduct = connection.OpenRead("./az-pricing-v3.csv");
-                using Stream fileItinerary = connection.OpenRead("./az-itinerary.csv");
+            using var connection = new ConnectionSFTP().Connection();
+            var sftpFileReader = new SFTPFileReader();
+            Console.WriteLine("Abrindo arquivos" );
+            var fileProduct = sftpFileReader.ReadFile("./az-pricing-v3.csv", connection);
+            var fileItinerary = sftpFileReader.ReadFile("./az-itinerary.csv", connection);
 
-                var products = new Content().ReaderContent<ProductOffer>(config, fileProduct).ToList();
-                var itinenaries = new Content().ReaderContent<ItineraryOffer>(config, fileItinerary).ToList();
+            var products = new Content().ReaderContent<ProductOffer>(config, fileProduct).ToList();
+            var itinenaries = new Content().ReaderContent<ItineraryOffer>(config, fileItinerary).ToList();
 
-                Parallel.ForEach(products, item =>
-                {
-                    var itineraryList = itinenaries
-                        .Where(i => i.SailCode == item.ProductId)
-                        .OrderBy(i => i.BerthDate)
-                        .ToList();
+            var processor = new ItineraryProcessor();
+            processor.AttachItineraries(products, itinenaries);
 
-                    item.Itinerary = itineraryList;
-
-                    item.ItineraryPortNames = string.Join(" - ",
-                        itineraryList
-                        .Where(i => i.PortName != "AT SEA")
-                        .Select(i => i.PortName));
-
-                    item.EmbarkPortName = itineraryList
-                        .FirstOrDefault(i => i.PortCode == item.EmbarkPortCode)?.PortName ?? string.Empty;
-                });
-
-
-                return products;
-            }
-
+            return products;
         }
+
+
 
 
     }

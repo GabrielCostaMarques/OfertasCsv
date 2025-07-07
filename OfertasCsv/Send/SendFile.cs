@@ -1,27 +1,18 @@
 ﻿using OfertasCsv.Entity;
+using OfertasCsv.Infrasctructure.Configuration;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Text.Json;
 
 namespace OfertasCsv.Send
 {
     public class SendFile : ISendFile
     {
-        private static readonly string user = "Gabriel Marques";
-        private static readonly string appPassword = "p2DhLNweu5Ct4m1GlTRiAAX6";
         private static readonly string baseUrl = "https://manualdoagente.com.br/wp-json/wp/v2";
-
-        private HttpClient CreateHttpClient()
-        {
-            var authToken = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{user}:{appPassword}"));
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authToken);
-            return client;
-        }
-
         public async Task<int?> FindMediaIdAsync(string fileName)
         {
-            using var client = CreateHttpClient();
+            using var client = new ConfigHttpClient().Create();
+
+            Console.WriteLine($"Buscando ID da mídia para o arquivo: {fileName}");
             var url = $"{baseUrl}/media?search={Uri.EscapeDataString(fileName)}&orderby=date&order=desc";
 
             var response = await client.GetAsync(url);
@@ -40,13 +31,13 @@ namespace OfertasCsv.Send
 
         public async Task<bool> DeleteMediaAsync(int mediaId)
         {
-            using var client = CreateHttpClient();
+            using var client = new ConfigHttpClient().Create();
             var url = $"{baseUrl}/media/{mediaId}?force=true";
 
             var response = await client.DeleteAsync(url);
             if (response.IsSuccessStatusCode)
             {
-                Console.WriteLine("Arquivo excluído com sucesso.");
+                Console.WriteLine("Arquivo antigo excluído do Wordpress com sucesso!");
                 return true;
             }
 
@@ -57,7 +48,7 @@ namespace OfertasCsv.Send
 
         public async Task SendJsonForWordPressAsync(string fileWay, string fileName)
         {
-            using var client = CreateHttpClient();
+            using var client = new ConfigHttpClient().Create();
             var url = $"{baseUrl}/media";
 
             var content = await File.ReadAllBytesAsync(fileWay);
@@ -68,7 +59,7 @@ namespace OfertasCsv.Send
             var response = await client.PostAsync(url, byteContent);
 
             if (response.IsSuccessStatusCode)
-                Console.WriteLine("Arquivo enviado com sucesso!");
+                Console.WriteLine("Novo arquivo enviado com sucesso!");
             else
             {
                 Console.WriteLine($"Erro ao enviar arquivo: {response.StatusCode}");

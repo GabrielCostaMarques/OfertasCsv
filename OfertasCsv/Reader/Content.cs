@@ -7,10 +7,12 @@ namespace OfertasCsv.Reader
     {
         public List<T> ReaderContent<T>(CsvConfiguration config, Stream fileStream)
         {
-            using var reader = new StreamReader(fileStream);
+            var reader = new StreamReader(fileStream);
             var csv = new CsvReader(reader, config);
-            
+
+            Console.WriteLine("Lendo arquivo...");
             var list = csv.GetRecords<T>().ToList();
+
             return list;
         }
     }

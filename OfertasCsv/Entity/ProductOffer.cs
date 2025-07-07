@@ -71,12 +71,12 @@ namespace OfertasCsv.Entity
         [Name("PORT_FEES")]
         public double PortFees { get; set; }
 
-        [Ignore] 
+        [Ignore]
+        public double TotalCruiseFare { get => Math.Round(CruiseFare + NCCF + GovTaxes + PortFees - Discount); set; }
+
+        [Ignore]
         public string ItineraryPortNames { get; set; }
         public List<ItineraryOffer> Itinerary { get; set; }
     }
-
-
-    
 }
 
