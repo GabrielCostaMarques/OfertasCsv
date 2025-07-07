@@ -1,27 +1,27 @@
-﻿using System.Net.Http.Headers;
+﻿using OfertasCsv.Entity;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
-namespace OfertasCsv
+namespace OfertasCsv.Send
 {
-    public class Send
+    public class SendFile : ISendFile
     {
-        private static readonly string usuario = "";
+        private static readonly string user = "";
         private static readonly string appPassword = "";
         private static readonly string baseUrl = "";
 
-        private static HttpClient CriarHttpClient()
+        private HttpClient CreateHttpClient()
         {
-            var authToken = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{usuario}:{appPassword}"));
+            var authToken = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{user}:{appPassword}"));
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authToken);
             return client;
         }
 
-        public static async Task<int?> FindMediaIdAsync(string fileName)
+        public async Task<int?> FindMediaIdAsync(string fileName)
         {
-            using var client = CriarHttpClient();
+            using var client = CreateHttpClient();
             var url = $"{baseUrl}/media?search={Uri.EscapeDataString(fileName)}&orderby=date&order=desc";
 
             var response = await client.GetAsync(url);
@@ -38,10 +38,10 @@ namespace OfertasCsv
             return media?.Id;
         }
 
-        public static async Task<bool> ExcluirMediaAsync(int mediaId)
+        public async Task<bool> DeleteMediaAsync(int mediaId)
         {
-            using var client = CriarHttpClient();
-            var url = $"{baseUrl}/media/{mediaId}?force=true";
+            using var client = CreateHttpClient();
+            var url = $"{baseUrl}/media/{mediaId}";
 
             var response = await client.DeleteAsync(url);
             if (response.IsSuccessStatusCode)
@@ -55,17 +55,17 @@ namespace OfertasCsv
             return false;
         }
 
-        public static async Task EnviarJsonParaWordPressAsync(string caminhoArquivo, string nomeArquivo = "ofertasAzamara.json")
+        public async Task SendJsonForWordPressAsync(string fileWay, string fileName)
         {
-            using var client = CriarHttpClient();
+            using var client = CreateHttpClient();
             var url = $"{baseUrl}/media";
 
-            var conteudo = await File.ReadAllBytesAsync(caminhoArquivo);
-            var content = new ByteArrayContent(conteudo);
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            content.Headers.Add("Content-Disposition", $"attachment; filename=\"{nomeArquivo}\"");
+            var content = await File.ReadAllBytesAsync(fileWay);
+            var byteContent = new ByteArrayContent(content);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            byteContent.Headers.Add("Content-Disposition", $"attachment; filename=\"{fileName}\"");
 
-            var response = await client.PostAsync(url, content);
+            var response = await client.PostAsync(url, byteContent);
 
             if (response.IsSuccessStatusCode)
                 Console.WriteLine("Arquivo enviado com sucesso!");
@@ -75,23 +75,5 @@ namespace OfertasCsv
                 Console.WriteLine(await response.Content.ReadAsStringAsync());
             }
         }
-    }
-
-    public class MediaItem
-    {
-        [JsonPropertyName("id")]
-        public int Id { get; set; }
-
-        [JsonPropertyName("slug")]
-        public string Slug { get; set; }
-
-        [JsonPropertyName("title")]
-        public TitleData Title { get; set; }
-    }
-
-    public class TitleData
-    {
-        [JsonPropertyName("rendered")]
-        public string Rendered { get; set; }
     }
 }

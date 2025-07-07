@@ -64,7 +64,7 @@ namespace OfertasCsv.Entity
         [Name("PORT_FEES")]
         public double PortFees { get; set; }
 
-        public List<ItinenaryOffer> Itinerary { get; set; }
+        public List<ItineraryOffer> Itinerary { get; set; }
     }
 
 

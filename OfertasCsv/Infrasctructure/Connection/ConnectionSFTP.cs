@@ -1,6 +1,6 @@
 ﻿using Renci.SshNet;
 
-namespace OfertasCsv
+namespace OfertasCsv.Infrasctructure.Connection
 {
     public class ConnectionSFTP
     {

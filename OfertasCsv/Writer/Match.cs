@@ -1,5 +1,6 @@
 ﻿using CsvHelper.Configuration;
 using OfertasCsv.Entity;
+using OfertasCsv.Infrasctructure.Connection;
 using OfertasCsv.Reader;
 
 namespace OfertasCsv.Writer
@@ -14,7 +15,7 @@ namespace OfertasCsv.Writer
                 using Stream fileItinerary = connection.OpenRead("./az-itinerary.csv");
 
                 var products = new Content().ReaderContent<ProductOffer>(config, fileProduct).ToList();
-                var itinenaries = new Content().ReaderContent<ItinenaryOffer>(config, fileItinerary).ToList();
+                var itinenaries = new Content().ReaderContent<ItineraryOffer>(config, fileItinerary).ToList();
 
                 Parallel.ForEach(products, item =>
                 {

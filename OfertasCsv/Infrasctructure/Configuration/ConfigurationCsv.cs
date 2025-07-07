@@ -1,11 +1,12 @@
 ﻿using CsvHelper.Configuration;
 using System.Globalization;
 
-namespace OfertasCsv
+namespace OfertasCsv.Infrasctructure.Configuration
 {
     public class ConfigurationCsv
     {
-        public CsvConfiguration ConfigCsv() {
+        public CsvConfiguration ConfigCsv()
+        {
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 Delimiter = ",",

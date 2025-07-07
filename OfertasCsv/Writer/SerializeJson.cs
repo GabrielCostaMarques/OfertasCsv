@@ -10,7 +10,7 @@ namespace OfertasCsv.Writer
         {
             string json = JsonSerializer.Serialize(offers);
 
-            File.WriteAllText(@"C:\Users\gmarques\Downloads\ofertas.json", json);
+            File.WriteAllText(@"./ofertas.json", json);
             Console.WriteLine("Arquivo criado");
         }
     }
