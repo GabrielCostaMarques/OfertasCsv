@@ -26,11 +26,13 @@ namespace OfertasCsv.Writer
 
                     item.Itinerary = itineraryList;
 
-                    // Gera a string com os nomes dos portos separados por vírgula
                     item.ItineraryPortNames = string.Join(" - ",
                         itineraryList
                         .Where(i => i.PortName != "AT SEA")
                         .Select(i => i.PortName));
+
+                    item.EmbarkPortName = itineraryList
+                        .FirstOrDefault(i => i.PortCode == item.EmbarkPortCode)?.PortName ?? string.Empty;
                 });
 
 

@@ -35,6 +35,9 @@ namespace OfertasCsv.Entity
         [Name("EMBARK_PORT")]
         public string EmbarkPortCode { get; set; }
 
+        [Ignore]
+        public string EmbarkPortName { get; set; }
+
         [Name("DEBARK_PORT")]
         public string DebarkPortCode { get; set; }
 

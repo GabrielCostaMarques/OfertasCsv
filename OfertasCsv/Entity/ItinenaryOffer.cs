@@ -4,6 +4,10 @@ namespace OfertasCsv.Entity
 {
     public class ItineraryOffer
     {
+        public ItineraryOffer()
+        {
+        }
+
         [Name("SHIP_CODE")]
         public string ShipCode { get; set; }
 
