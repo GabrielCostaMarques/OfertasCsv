@@ -6,7 +6,7 @@ namespace OfertasCsv.Infrasctructure.Configuration
     public class ConfigHttpClient
     {
         private static readonly string user = "Gabriel Marques";
-        private static readonly string appPassword = "";
+        private static readonly string appPassword = "IWqK wfuk XIeJ gWbl eO3p kkj6";
 
 
         public HttpClient Create()

@@ -10,6 +10,8 @@ namespace OfertasCsv
         {
             ISendFile sendFile = new SendFile();
 
+            ImageMapper image = new();
+
             var config = new ConfigurationCsv().ConfigCsv();
             var cruises = Match.MatchWriter(config)
                 .FilterGeneral("BRL", c => c.Currency)
@@ -18,9 +20,10 @@ namespace OfertasCsv
                 .Take(50)
                 .ToList();
 
-            cruises.GetForJson();
+            var finishCruise = image.GetImageDestination(cruises);
+            finishCruise.GetForJson();
 
-            var caminhoArquivo = @"C:\Users\gmarques\Downloads\ofertas.json";
+            var caminhoArquivo = @"C:\Users\gmarques\Downloads\ofertasAzamara.json";
             string filename = "ofertasAzamara";
             var mediaId = await sendFile.FindMediaIdAsync(filename);
 

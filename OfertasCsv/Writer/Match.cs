@@ -23,9 +23,5 @@ namespace OfertasCsv.Writer
 
             return products;
         }
-
-
-
-
     }
 }

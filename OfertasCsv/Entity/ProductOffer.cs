@@ -76,7 +76,12 @@ namespace OfertasCsv.Entity
 
         [Ignore]
         public string ItineraryPortNames { get; set; }
+
+        [Ignore]
+        public string ImageBackground { get; set; }
+
         public List<ItineraryOffer> Itinerary { get; set; }
+
     }
 }
 
