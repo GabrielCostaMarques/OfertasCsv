@@ -8,13 +8,13 @@ namespace OfertasCsv.Writer
         {
             try
             {
-                if (!list.Exists(item => selector(item).ToUpper() == obj))
+                if (!list.Exists(item => selector(item).ToUpper() == obj.ToUpper()))
                 {
                     Console.WriteLine("Not Found " + obj);
                     return new List<T>();
                 }
 
-                var filteredCategory = list.Where(l => selector(l).ToUpper() == obj).ToList();
+                var filteredCategory = list.Where(l => selector(l).ToUpper() == obj.ToUpper()).ToList();
 
                 return filteredCategory;
             }
@@ -24,6 +24,28 @@ namespace OfertasCsv.Writer
                 return new List<T>();
             }
         }
+
+        public static List<T> ExcludeGeneral<T>(this List<T> list, string obj, Func<T, string> selector)
+        {
+            try
+            {
+                if (!list.Exists(item => selector(item).ToUpper() == obj.ToUpper()))
+                {
+                    Console.WriteLine("Not Found " + obj);
+                    return new List<T>();
+                }
+
+                var filteredCategory = list.Where(l => selector(l).ToUpper() != obj.ToUpper()).ToList();
+
+                return filteredCategory;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new List<T>();
+            }
+        }
+
 
         public static List<T> TakeCheaperById<T>(this List<T> list) where T :ProductOffer
         {

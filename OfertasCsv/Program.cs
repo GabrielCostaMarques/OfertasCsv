@@ -15,9 +15,10 @@ namespace OfertasCsv
             var config = new ConfigurationCsv().ConfigCsv();
             var cruises = Match.MatchWriter(config)
                 .FilterGeneral("BRL", c => c.Currency)
+                .ExcludeGeneral("Alaska Cruise Tour", c => c.Destination)
                 .TakeCheaperById()
                 .OrderBy(o => o.CruiseFare)
-                .Take(50)
+                .Take(20)
                 .ToList();
 
             var finishCruise = image.GetImageDestination(cruises);

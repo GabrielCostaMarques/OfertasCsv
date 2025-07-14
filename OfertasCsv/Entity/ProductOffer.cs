@@ -1,4 +1,5 @@
 ﻿using CsvHelper.Configuration.Attributes;
+using System.Text.Json.Serialization;
 
 namespace OfertasCsv.Entity
 {
@@ -71,7 +72,7 @@ namespace OfertasCsv.Entity
         [Name("PORT_FEES")]
         public double PortFees { get; set; }
 
-        [Ignore]
+        [Ignore]    
         public double TotalCruiseFare { get => Math.Round(CruiseFare + NCCF + GovTaxes + PortFees - Discount); set; }
 
         [Ignore]

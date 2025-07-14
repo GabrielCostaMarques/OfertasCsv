@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using OfertasCsv.Entity;
+using System.Globalization;
 
 namespace OfertasCsv.Writer
 {
@@ -10,7 +11,7 @@ namespace OfertasCsv.Writer
         public static void GetForJson(this List<ProductOffer> offers)
         {
             var settings = new JsonSerializerSettings();
-            settings.Converters.Add(new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+            settings.Converters.Add(new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" }); 
 
             string json = JsonConvert.SerializeObject(offers, Formatting.Indented, settings);
 
