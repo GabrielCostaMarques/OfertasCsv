@@ -18,7 +18,7 @@ namespace OfertasCsv
                 .ExcludeGeneral("Alaska Cruise Tour", c => c.Destination)
                 .TakeCheaperById()
                 .OrderBy(o => o.CruiseFare)
-                .Take(20)
+                .Take(100)
                 .ToList();
 
             var finishCruise = image.GetImageDestination(cruises);

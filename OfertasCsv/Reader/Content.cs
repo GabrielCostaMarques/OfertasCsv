@@ -7,6 +7,12 @@ namespace OfertasCsv.Reader
     {
         public List<T> ReaderContent<T>(CsvConfiguration config, Stream fileStream)
         {
+
+            if (fileStream == null || fileStream.Length == 0)
+            {
+                Console.WriteLine("O arquivo está vazio ou não foi encontrado.");
+                return new List<T>();
+            }
             var reader = new StreamReader(fileStream);
             var csv = new CsvReader(reader, config);
 

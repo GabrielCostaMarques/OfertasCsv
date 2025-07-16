@@ -11,7 +11,6 @@ namespace OfertasCsv.Writer
         public static void GetForJson(this List<ProductOffer> offers)
         {
             var settings = new JsonSerializerSettings();
-            settings.Converters.Add(new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" }); 
 
             string json = JsonConvert.SerializeObject(offers, Formatting.Indented, settings);
 

@@ -11,7 +11,7 @@ namespace OfertasCsv.Writer
         {
             using var connection = new ConnectionSFTP().Connection();
             var sftpFileReader = new SFTPFileReader();
-            Console.WriteLine("Abrindo arquivos" );
+            
             var fileProduct = sftpFileReader.ReadFile("./az-pricing-v3.csv", connection);
             var fileItinerary = sftpFileReader.ReadFile("./az-itinerary.csv", connection);
 

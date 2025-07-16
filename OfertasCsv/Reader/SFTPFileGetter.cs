@@ -1,5 +1,4 @@
-﻿using OfertasCsv.Infrasctructure.Connection;
-using Renci.SshNet;
+﻿using Renci.SshNet;
 
 namespace OfertasCsv.Reader
 {
@@ -7,7 +6,11 @@ namespace OfertasCsv.Reader
     {
         public Stream ReadFile(string path, SftpClient connection)
         {
-            
+            if (connection == null || !connection.IsConnected)
+            {
+                throw new InvalidOperationException("Connection is not established or is invalid.");
+            }
+            Console.WriteLine("Abrindo arquivos");
             return connection.OpenRead(path);
         }
     }

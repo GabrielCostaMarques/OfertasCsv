@@ -21,13 +21,18 @@ namespace OfertasCsv.Infrasctructure.Connection
                 {
                     Console.WriteLine("Connected Server!");
                 }
+                else
+                {
+
+                    throw new InvalidOperationException("Failed to connect to the server.");
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
 
-            return client;
+                return client;
         }
     }
 }
