@@ -51,7 +51,7 @@ namespace OfertasCsv.Writer
             foreach (var item in product)
             {
 
-                if (ImageMap.TryGetValue(item.Destination.ToUpper(), out string imageUrl))
+                if (ImageMap.TryGetValue(item.Destination.ToUpper(), out string? imageUrl))
                 {
                     item.ImageBackground = imageUrl;
                 }
