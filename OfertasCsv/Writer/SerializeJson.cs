@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using OfertasCsv.Entity;
-using System.Globalization;
 
 namespace OfertasCsv.Writer
 {
@@ -16,7 +14,11 @@ namespace OfertasCsv.Writer
 
             Console.WriteLine("Criando Json...");
 
-            File.WriteAllText(@"C:\Users\gmarques\Downloads\ofertasAzamara.json", json);
+            var folder = "output";
+            Directory.CreateDirectory(folder);
+            var filePath = Path.Combine(folder, "ofertasAzamara.json");
+
+            File.WriteAllText(filePath, json);
             Console.WriteLine("Arquivo criado");
         }
     }

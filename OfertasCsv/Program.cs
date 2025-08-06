@@ -18,13 +18,12 @@ namespace OfertasCsv
                 .ExcludeGeneral("Alaska Cruise Tour", c => c.Destination)
                 .TakeCheaperById()
                 .OrderBy(o => o.CruiseFare)
-                .Take(100)
+                .Take(50)
                 .ToList();
 
             var finishCruise = image.GetImageDestination(cruises);
             finishCruise.GetForJson();
 
-            var caminhoArquivo = @"C:\Users\gmarques\Downloads\ofertasAzamara.json";
             string filename = "ofertasAzamara";
             var mediaId = await sendFile.FindMediaIdAsync(filename);
 
@@ -42,6 +41,7 @@ namespace OfertasCsv
                 Console.WriteLine("Arquivo anterior não encontrado, prosseguindo com novo envio.");
             }
 
+            var caminhoArquivo = @"./output/ofertasAzamara.json";
             await sendFile.SendJsonForWordPressAsync(caminhoArquivo);
         }
 
