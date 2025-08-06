@@ -73,7 +73,7 @@ namespace OfertasCsv.Entity
         public double PortFees { get; set; }
 
         [Ignore]    
-        public double TotalCruiseFare { get => Math.Round(CruiseFare + NCCF + GovTaxes + PortFees - Discount); set; }
+        public double TotalCruiseFare { get => Math.Round(CruiseFare + NCCF + GovTaxes + PortFees - Discount); }
 
         [Ignore]
         public string ItineraryPortNames { get; set; }
