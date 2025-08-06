@@ -1,0 +1,29 @@
+name: Processar e enviar ofertas
+
+on:
+  workflow_dispatch:
+
+jobs:
+  gerar-ofertas:
+    runs-on: ubuntu-latest
+    env:
+      SFTP_HOST: ${{ vars.SFTP_HOST }}
+      SFTP_USER: ${{ vars.SFTP_USER }}
+      SFTP_PRIVATE_KEY: ${{ secrets.SFTP_PRIVATE_KEY }}
+      WP_USER: ${{ vars.WP_USER }}
+      WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Rodar script
+        run: dotnet run --project ./OfertasCsv/OfertasCsv.csproj
+
+        
+
