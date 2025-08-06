@@ -5,6 +5,6 @@ namespace OfertasCsv.Entity
     public class TitleData
     {
         [JsonPropertyName("rendered")]
-        public string Rendered { get; set; }
+        public string Rendered { get; set; } = string.Empty;
     }
 }

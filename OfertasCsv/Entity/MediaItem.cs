@@ -8,9 +8,9 @@ namespace OfertasCsv.Entity
         public int Id { get; set; }
 
         [JsonPropertyName("slug")]
-        public string Slug { get; set; }
+        public string Slug { get; set; } = string.Empty;
 
         [JsonPropertyName("title")]
-        public TitleData Title { get; set; }
+        public TitleData Title { get; set; } = string.Empty;
     }
 }

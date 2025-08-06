@@ -9,10 +9,10 @@ namespace OfertasCsv.Entity
         }
 
         [Name("SHIP_CODE")]
-        public string ShipCode { get; set; }
+        public string ShipCode { get; set; } = string.Empty;
 
         [Name("SAIL_CODE")]
-        public string SailCode { get; set; }
+        public string SailCode { get; set; } = string.Empty;
 
         [Name("SAIL_DATE")]
         public DateTime SailDate { get; set; }
@@ -24,13 +24,13 @@ namespace OfertasCsv.Entity
         public int CruiseLength { get; set; }
 
         [Name("ORIGINATING_PORT")]
-        public string OriginatingPort { get; set; }
+        public string OriginatingPort { get; set; } = string.Empty;
 
         [Name("DESTINATION_PORT")]
-        public string DestinationPort { get; set; }
+        public string DestinationPort { get; set; } = string.Empty;
 
         [Name("ITIN_DESCRIPTION")]
-        public string ItineraryDescription { get; set; }
+        public string ItineraryDescription { get; set; } = string.Empty;
 
         [Name("DAY_OF_CRUISE")]
         public int DayOfCruise { get; set; }
@@ -39,19 +39,19 @@ namespace OfertasCsv.Entity
         public DateTime BerthDate { get; set; }
 
         [Name("ARRIVAL_TIME")]
-        public string ArrivalTime { get; set; } 
+        public string ArrivalTime { get; set; } = string.Empty;
 
         [Name("DEPARTURE_TIME")]
-        public string DepartureTime { get; set; }
+        public string DepartureTime { get; set; } = string.Empty;
 
         [Name("COUNTRY_CODE")]
-        public string CountryCode { get; set; }
+        public string CountryCode { get; set; } = string.Empty;
 
         [Name("PORT_CODE")]
-        public string PortCode { get; set; }
+        public string PortCode { get; set; } = string.Empty;
 
         [Name("PORT_NAME")]
-        public string PortName { get; set; }
+        public string PortName { get; set; } = string.Empty;
 
         [Name("OVERNIGHT_FLAG")]
         public char OverNightFlag { get; set; }
