@@ -10,19 +10,19 @@ namespace OfertasCsv.Entity
         }
 
         [Name("DESTINATION")]
-        public string Destination { get; set; }
+        public string Destination { get; set; } = string.Empty;
 
         [Name("ID")]
         public string ProductId { get; set; } = string.Empty;
 
         [Name("SHIP")]
-        public string ShipName { get; set; }
+        public string ShipName { get; set; } = string.Empty;
 
         [Name("NAME")]
-        public string ProductName { get; set; }
+        public string ProductName { get; set; } = string.Empty;
 
         [Name("SAIL_TYPE")]
-        public string SailType { get; set; }
+        public string SailType { get; set; } = string.Empty;
 
         [Name("DURATION")]
         public int? Duration { get; set; }
@@ -34,25 +34,25 @@ namespace OfertasCsv.Entity
         public DateTime DebarkDate { get; set; }
 
         [Name("EMBARK_PORT")]
-        public string EmbarkPortCode { get; set; }
+        public string EmbarkPortCode { get; set; } = string.Empty;
 
         [Ignore]
-        public string EmbarkPortName { get; set; }
+        public string EmbarkPortName { get; set; } = string.Empty;
 
         [Name("DEBARK_PORT")]
-        public string DebarkPortCode { get; set; }
+        public string DebarkPortCode { get; set; } = string.Empty;
 
         [Name("CATEGORY_RANK")]
         public int CategoryRank { get; set; }
 
         [Name("CATEGORY")]
-        public string CategoryCode { get; set; }
+        public string CategoryCode { get; set; } = string.Empty;
 
         [Name("CATEGORY_NAME")]
-        public string CategoryName { get; set; }
+        public string CategoryName { get; set; } = string.Empty;
 
         [Name("CURRENCY")]
-        public string Currency { get; set; }
+        public string Currency { get; set; } = string.Empty;
 
         [Name("CRUISE_FARE")]
         public double CruiseFare { get; set; }
@@ -67,19 +67,20 @@ namespace OfertasCsv.Entity
         public double Discount { get; set; }
 
         [Name("AVAILABILITY")]
-        public string Available { get; set; }
+        public string Available { get; set; } = string.Empty;
 
         [Name("PORT_FEES")]
         public double PortFees { get; set; }
 
-        [Ignore]    
-        public double TotalCruiseFare { get => Math.Round(CruiseFare + NCCF + GovTaxes + PortFees - Discount); }
+        [Ignore]
+        public double TotalCruiseFare => Math.Round(CruiseFare + NCCF + GovTaxes + PortFees - Discount);
+
 
         [Ignore]
-        public string ItineraryPortNames { get; set; }
+        public string ItineraryPortNames { get; set; } = string.Empty;
 
         [Ignore]
-        public string ImageBackground { get; set; }
+        public string ImageBackground { get; set; } = string.Empty;
 
         public List<ItineraryOffer> Itinerary { get; set; }
 
