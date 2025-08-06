@@ -11,6 +11,6 @@ namespace OfertasCsv.Entity
         public string Slug { get; set; } = string.Empty;
 
         [JsonPropertyName("title")]
-        public TitleData Title { get; set; } = string.Empty;
+        public TitleData Title { get; set; } = new();
     }
 }

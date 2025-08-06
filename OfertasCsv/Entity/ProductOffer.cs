@@ -82,7 +82,7 @@ namespace OfertasCsv.Entity
         [Ignore]
         public string ImageBackground { get; set; } = string.Empty;
 
-        public List<ItineraryOffer> Itinerary { get; set; }
+        public List<ItineraryOffer> Itinerary { get; set; } = new();
 
     }
 }
