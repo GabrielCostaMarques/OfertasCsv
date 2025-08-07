@@ -4,8 +4,8 @@ namespace OfertasCsv.Infrasctructure.Connection
 {
     public class ConnectionSFTP
     {
-        private readonly string host = Environment.GetEnvironmentVariable("SFTP_HOST") ?? "not host";
-        private readonly string username = Environment.GetEnvironmentVariable("SFTP_USER") ??"not user"; 
+        private readonly string host = "sftp.azamara.com";
+        private readonly string username = "R11"; 
         private readonly string pathKey = Environment.GetEnvironmentVariable("SFTP_PRIVATE_KEY")??"not pk";
 
         public SftpClient Connection()

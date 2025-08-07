@@ -5,7 +5,7 @@ namespace OfertasCsv.Infrasctructure.Configuration
 {
     public class ConfigHttpClient
     {
-        private static readonly string user = Environment.GetEnvironmentVariable("WP_USER")?? "no User";
+        private static readonly string user = "Gabriel Marques";
         private static readonly string appPassword = Environment.GetEnvironmentVariable("WP_APP_PASSWORD")?? "no password";
 
 
