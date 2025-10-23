@@ -1,4 +1,5 @@
-﻿using OfertasCsv.Infrasctructure.Configuration;
+﻿using CsvHelper.Configuration;
+using OfertasCsv.Infrasctructure.Configuration;
 using OfertasCsv.Send;
 using OfertasCsv.Writer;
 
@@ -12,7 +13,7 @@ namespace OfertasCsv
 
             ImageMapper image = new();
 
-            var config = new ConfigurationCsv().ConfigCsv();
+            var config = ConfigurationCsv.ConfigCsv();
             var cruises = Match.MatchWriter(config)
                 .FilterGeneral("BRL", c => c.Currency)
                 .ExcludeGeneral("Alaska Cruise Tour", c => c.Destination)
@@ -22,11 +23,20 @@ namespace OfertasCsv
                 .ToList();
 
             var finishCruise = image.GetImageDestination(cruises);
+            // Replace this line:
             finishCruise.GetForJson();
+
+
+            // With this line:
 
             var caminhoArquivo = @"C:\Users\gmarques\Downloads\ofertasAzamara.json";
             string filename = "ofertasAzamara";
             var mediaId = await sendFile.FindMediaIdAsync(filename);
+
+
+
+            string caminho = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "produtos.csv");
+            CsvSerialize.SaveAsCsv(finishCruise, caminho);
 
             if (mediaId.HasValue)
             {

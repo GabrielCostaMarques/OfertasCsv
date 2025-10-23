@@ -11,7 +11,7 @@ namespace OfertasCsv.Reader
             if (fileStream == null || fileStream.Length == 0)
             {
                 Console.WriteLine("O arquivo está vazio ou não foi encontrado.");
-                return new List<T>();
+                return [];
             }
             var reader = new StreamReader(fileStream);
             var csv = new CsvReader(reader, config);

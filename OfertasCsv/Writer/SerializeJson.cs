@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using OfertasCsv.Entity;
-using System.Globalization;
 
 namespace OfertasCsv.Writer
 {
